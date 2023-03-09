@@ -19,6 +19,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import com.hegesoft.snookerscore.domain.models.Ball
 import com.hegesoft.snookerscore.domain.models.Settings
+import com.hegesoft.snookerscore.ui.theme.padding
 
 @Composable
 fun WideButton(
@@ -31,7 +32,9 @@ fun WideButton(
     Button(
         onClick = onPressed,
         colors = ButtonDefaults.buttonColors(containerColor = color),
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = MaterialTheme.padding.small)
     ) {
         Text(
             text = text,

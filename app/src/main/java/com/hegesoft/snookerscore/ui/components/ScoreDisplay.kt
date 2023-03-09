@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.hegesoft.snookerscore.ui.theme.padding
 
 @Composable
 fun ScoreDisplay(
@@ -41,6 +42,7 @@ private fun ScoreRow(
         modifier = Modifier
             .fillMaxWidth()
             .background(backgroundColor)
+            .padding(horizontal = MaterialTheme.padding.small)
     ) {
         val textStyle = MaterialTheme.typography.displayMedium
         Text(

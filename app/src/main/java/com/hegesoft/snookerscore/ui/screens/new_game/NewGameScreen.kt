@@ -17,6 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import com.hegesoft.snookerscore.ui.components.*
 import com.hegesoft.snookerscore.ui.theme.Typography
+import com.hegesoft.snookerscore.ui.theme.padding
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.spec.DestinationStyle
@@ -125,7 +126,8 @@ private fun GameScore(
 ) {
     Surface(
         border = BorderStroke(2.dp, MaterialTheme.colorScheme.primaryContainer),
-        shape = RoundedCornerShape(10.dp)
+        shape = RoundedCornerShape(10.dp),
+        modifier = Modifier.padding(horizontal = MaterialTheme.padding.small)
     ) {
         Column(
             modifier = Modifier

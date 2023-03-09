@@ -4,7 +4,10 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
 
 private val LightColors = lightColorScheme(
@@ -72,6 +75,11 @@ private val DarkColors = darkColorScheme(
     scrim = md_theme_dark_scrim,
 )
 
+data class HorizontalPadding(
+    val small: Dp,
+    val large: Dp
+)
+
 @Composable
 fun SnookerScoreTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
@@ -83,10 +91,12 @@ fun SnookerScoreTheme(
         DarkColors
     }
 
-    MaterialTheme(
-        colorScheme = colors,
-        typography = Typography,
-        content = content
-    )
+    CompositionLocalProvider(LocalPadding provides Padding()) {
+        MaterialTheme(
+            colorScheme = colors,
+            typography = Typography,
+            content = content
+        )
+    }
 
 }

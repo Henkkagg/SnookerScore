@@ -1,12 +1,9 @@
 package com.hegesoft.snookerscore.ui.screens.game
 
-import android.util.Log
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hegesoft.snookerscore.domain.models.Ball
 import com.hegesoft.snookerscore.domain.models.toBalls
@@ -70,7 +67,7 @@ fun GameRootScreen(
             balls = breakInfo.breakPoints.toBalls(),
             topText = "${breakInfo.breakNumber.toOrdinalString()} break, ${breakInfo.breakPoints.sum()} points",
             bottomText = "${scoreInfo.pointsOnTable} on, difference of $scoreDifference",
-            isFreeball = legalBalls.isFreeBall
+            isFreeBall = legalBalls.isFreeBall
         )
         TinySpacer()
 
