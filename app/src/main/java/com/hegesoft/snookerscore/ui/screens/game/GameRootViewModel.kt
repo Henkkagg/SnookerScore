@@ -1,6 +1,5 @@
 package com.hegesoft.snookerscore.ui.screens.game
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -144,12 +143,17 @@ class GameRootViewModel @Inject constructor(
 
     fun getAlertDialog(): AlertDialog {
         val frameIsTied = scoreInfo.value.player1Score == scoreInfo.value.player2Score
-        val leadingPlayer =
-            if (scoreInfo.value.player1Score > scoreInfo.value.player2Score) player1Name else player2Name
+        val player1Won = scoreInfo.value.player1Score > scoreInfo.value.player2Score
+        val winner = when {
+            player1Won && !reversePlayers -> player1Name
+            player1Won && reversePlayers -> player2Name
+            !player1Won && !reversePlayers -> player2Name
+            else -> player1Name
+        }
         val titleText = if (frameIsTied) "Discard frame?" else "End frame?"
         val bodyText = if (frameIsTied) {
             "The score of the frame is tied. If you end the frame now, the result won't be recorded"
-        } else "If you end the frame now, $leadingPlayer will be recorded as the winner"
+        } else "If you end the frame now, $winner will be recorded as the winner"
         val yesText = if (frameIsTied) "Discard frame" else "End frame"
 
         return AlertDialog(
