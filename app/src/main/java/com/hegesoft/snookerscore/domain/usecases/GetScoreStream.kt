@@ -1,5 +1,6 @@
 package com.hegesoft.snookerscore.domain.usecases
 
+import android.util.Log
 import com.hegesoft.snookerscore.domain.BreakRepository
 import com.hegesoft.snookerscore.domain.models.Score
 import com.hegesoft.snookerscore.domain.models.toBreakUi
@@ -30,6 +31,9 @@ class GetScoreStream @Inject constructor(private val repository: BreakRepository
             var lastShotStartedPhase2 = false
 
             for (breakDb in breakList) {
+                if (breakDb.redsLost >= 1 && redsRemaining - breakDb.redsLost == 0) {
+                    lowestPointRemaining += 1
+                }
                 redsRemaining -= breakDb.redsLost
                 lastShotStartedPhase2 = false
 
@@ -72,6 +76,11 @@ class GetScoreStream @Inject constructor(private val repository: BreakRepository
             if (isShootingFreeBall) {
                 pointsOnTable += if (redsRemaining > 0) 8 else lowestPointRemaining
             }
+
+            Log.i("apu", "****")
+            Log.i("apu", "lowest: $lowestPointRemaining")
+            Log.i("apu", "reds: $redsRemaining")
+            Log.i("apu", "free: $isShootingFreeBall")
 
             val score = Score(
                 player1Score = player1Score,
