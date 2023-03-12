@@ -6,6 +6,7 @@ data class BreakUi(
     val breakNumber: Int = 0,
     val playerInTurn: Int = 0,
     val breakPoints: List<Int> = emptyList(),
+    val firstWasFreeBall: Boolean = false,
     val foulPoints: Int? = null
 )
 
@@ -18,6 +19,7 @@ fun BreakDb.toBreakUi(): BreakUi {
         breakNumber = breakId,
         playerInTurn = playerInTurn,
         breakPoints = breakPoints,
+        firstWasFreeBall = freeBallStatus == 2,
         foulPoints = foulPoints
     )
 }

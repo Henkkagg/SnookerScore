@@ -2,10 +2,7 @@ package com.hegesoft.snookerscore.ui.screens.settings
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.TweenSpec
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,6 +11,7 @@ import androidx.navigation.NavBackStackEntry
 import com.hegesoft.snookerscore.ui.components.CheckboxRow
 import com.hegesoft.snookerscore.ui.components.SmallSpacer
 import com.hegesoft.snookerscore.ui.components.WideButton
+import com.hegesoft.snookerscore.ui.theme.padding
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.spec.DestinationStyle
 
@@ -40,7 +38,9 @@ fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
     Column(
-        modifier = Modifier.fillMaxHeight(),
+        modifier = Modifier
+            .fillMaxHeight()
+            .padding(horizontal = MaterialTheme.padding.small),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column {

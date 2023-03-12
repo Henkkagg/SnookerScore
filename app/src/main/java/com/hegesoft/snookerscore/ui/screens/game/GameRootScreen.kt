@@ -67,7 +67,8 @@ fun GameRootScreen(
             balls = breakInfo.breakPoints.toBalls(),
             topText = "${breakInfo.breakNumber.toOrdinalString()} break, ${breakInfo.breakPoints.sum()} points",
             bottomText = "${scoreInfo.pointsOnTable} on, difference of $scoreDifference",
-            isFreeBall = legalBalls.isFreeBall
+            isFreeBall = legalBalls.isFreeBall,
+            firstWasFreeBall = breakInfo.firstWasFreeBall
         )
         TinySpacer()
 
