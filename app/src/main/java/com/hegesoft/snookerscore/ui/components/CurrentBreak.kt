@@ -1,5 +1,6 @@
 package com.hegesoft.snookerscore.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -25,7 +27,8 @@ fun CurrentBreak(
     topText: String,
     balls: List<Ball>,
     bottomText: String,
-    isFreeBall: Boolean
+    isFreeBall: Boolean,
+    firstWasFreeBall: Boolean
 ) {
     Surface(
         modifier = Modifier
@@ -47,7 +50,7 @@ fun CurrentBreak(
             }
 
             val modifier = Modifier.weight(1f, true)
-            if (isFreeBall) {
+            if (isFreeBall && balls.isEmpty()) {
                 Text(
                     text = "Free ball",
                     style = MaterialTheme.typography.displayMedium,
@@ -59,12 +62,14 @@ fun CurrentBreak(
                     state = lazyListState,
                     modifier = modifier.padding(horizontal = MaterialTheme.padding.tiny)
                 ) {
-                    items(balls) { ball ->
-                        Ball(ball = ball)
+                    itemsIndexed(balls) { index, ball ->
+                        Ball(
+                            ball = ball,
+                            isFreeBall = firstWasFreeBall && index == 0
+                        )
                     }
                 }
             }
-
             Text(bottomText)
         }
     }

@@ -77,11 +77,6 @@ class GetScoreStream @Inject constructor(private val repository: BreakRepository
                 pointsOnTable += if (redsRemaining > 0) 8 else lowestPointRemaining
             }
 
-            Log.i("apu", "****")
-            Log.i("apu", "lowest: $lowestPointRemaining")
-            Log.i("apu", "reds: $redsRemaining")
-            Log.i("apu", "free: $isShootingFreeBall")
-
             val score = Score(
                 player1Score = player1Score,
                 player2Score = player2Score,

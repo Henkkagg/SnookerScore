@@ -26,7 +26,8 @@ import com.hegesoft.snookerscore.domain.models.Ball
 fun Ball(
     modifier: Modifier = Modifier,
     ball: Ball,
-    ballCount: Int? = null
+    ballCount: Int? = null,
+    isFreeBall: Boolean = false
 ) {
     val color = remember {
         Brush.radialGradient(
@@ -42,7 +43,9 @@ fun Ball(
             .background(color),
         contentAlignment = Alignment.Center
     ) {
-        if (ballCount != null) {
+        if (ballCount != null || isFreeBall) {
+            val text = ballCount?.toString() ?: "F"
+
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(100))
@@ -50,7 +53,7 @@ fun Ball(
             ) {
                 var height by remember { mutableStateOf(0) }
                 Text(
-                    text = "$ballCount",
+                    text = text,
                     maxLines = 1,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
