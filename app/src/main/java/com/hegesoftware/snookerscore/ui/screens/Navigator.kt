@@ -1,0 +1,42 @@
+package com.hegesoftware.snookerscore.ui.screens
+
+import com.ramcosta.composedestinations.spec.Direction
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import javax.inject.Inject
+import javax.inject.Singleton
+
+/*
+
+ */
+
+@Singleton
+class Navigator @Inject constructor() {
+
+    private val _navigationCommand = MutableStateFlow<Direction?>(null)
+    val navigationCommand = _navigationCommand.asStateFlow()
+
+    private val _shouldNavigateBack = MutableStateFlow(false)
+    val shouldNavigateBack = _shouldNavigateBack.asStateFlow()
+
+    private val _shouldGoToUpdate = MutableStateFlow(false)
+    val shouldGoToUpdate = _shouldGoToUpdate
+
+    fun navigate(direction: Direction) {
+        _navigationCommand.value = direction
+    }
+
+    fun popBackStack() {
+        _shouldNavigateBack.value = true
+    }
+
+    fun acknowledgeNavigation() {
+        _navigationCommand.value = null
+        _shouldNavigateBack.value = false
+        _shouldGoToUpdate.value = false
+    }
+
+    fun update() {
+        _shouldGoToUpdate.value = true
+    }
+}
