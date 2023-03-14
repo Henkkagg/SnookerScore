@@ -39,17 +39,6 @@ class NewGameViewModel @Inject constructor(
     private val player2NavArgument: String
         get() = gameState.player2Name.trim().ifEmpty { "Player 2" }
 
-    init {
-        viewModelScope.launch {
-            //Todo: Implement version check
-            val latestVersion = 404
-            if (latestVersion != null && latestVersion > VERSION_NUMBER) {
-                shouldUpdate = false
-                shouldShowAlertDialog = false
-            }
-        }
-    }
-
     fun onEvent(event: NewGameUiEvent) {
         when (event) {
             is NewGameUiEvent.Player1Changed -> {

@@ -19,9 +19,6 @@ class Navigator @Inject constructor() {
     private val _shouldNavigateBack = MutableStateFlow(false)
     val shouldNavigateBack = _shouldNavigateBack.asStateFlow()
 
-    private val _shouldGoToUpdate = MutableStateFlow(false)
-    val shouldGoToUpdate = _shouldGoToUpdate
-
     fun navigate(direction: Direction) {
         _navigationCommand.value = direction
     }
@@ -33,10 +30,5 @@ class Navigator @Inject constructor() {
     fun acknowledgeNavigation() {
         _navigationCommand.value = null
         _shouldNavigateBack.value = false
-        _shouldGoToUpdate.value = false
-    }
-
-    fun update() {
-        _shouldGoToUpdate.value = true
     }
 }

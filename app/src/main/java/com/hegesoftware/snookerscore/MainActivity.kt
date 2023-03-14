@@ -15,6 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.appupdate.AppUpdateOptions
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.hegesoftware.snookerscore.ui.screens.NavGraphs
 import com.hegesoftware.snookerscore.ui.screens.Navigator
 import com.hegesoftware.snookerscore.ui.theme.SnookerScoreTheme
@@ -33,6 +38,23 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialNavigationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val appUpdateManager = AppUpdateManagerFactory.create(this.applicationContext)
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+                && appUpdateInfo.updatePriority() >= 1
+            ) {
+                appUpdateManager.startUpdateFlow(
+                    appUpdateInfo,
+                    this,
+                    AppUpdateOptions.defaultOptions(AppUpdateType.IMMEDIATE)
+                )
+            }
+        }
+
 
         setContent {
             val animatedNavController = rememberAnimatedNavController()
@@ -64,12 +86,6 @@ class MainActivity : ComponentActivity() {
                         navigator.shouldNavigateBack.collectAsState().value.also { shouldNavigateBack ->
                             if (shouldNavigateBack) {
                                 animatedNavController.popBackStack()
-                                navigator.acknowledgeNavigation()
-                            }
-                        }
-                        navigator.shouldGoToUpdate.collectAsState().value.also { shouldGoToUpdate ->
-                            if (shouldGoToUpdate) {
-                                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=testi")))
                                 navigator.acknowledgeNavigation()
                             }
                         }
