@@ -1,5 +1,6 @@
 package com.hegesoftware.snookerscore.ui.screens.game
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +11,7 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.hegesoftware.snookerscore.domain.models.Ball
 import com.hegesoftware.snookerscore.domain.models.LegalBalls
 import com.hegesoftware.snookerscore.domain.models.Settings
@@ -34,13 +36,16 @@ fun PointScreen(
     }
 
     Column(
-        verticalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxHeight()
+        modifier = Modifier.fillMaxHeight(),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        val modifier = Modifier.weight(1f)
+        val modifier = Modifier.weight(1f, false)
 
-        Column {
-            Row {
+        Column(
+            modifier = modifier,
+            //verticalArrangement = Arrangement.Bottom
+        ) {
+            Row(modifier = modifier) {
                 CustomIconButton(
                     modifier = modifier.create(onKeyPress.menu),
                     imageVector = Icons.Default.Menu,
@@ -64,7 +69,7 @@ fun PointScreen(
                 )
             }
             TinyVerticalSpacer()
-            Row {
+            Row(modifier = modifier) {
                 BallButton(
                     modifier = if (legalBalls.yellow) modifier.create(onKeyPress.yellow) else modifier,
                     ball = Ball.Yellow,
@@ -87,7 +92,7 @@ fun PointScreen(
                 )
             }
             TinyVerticalSpacer()
-            Row {
+            Row(modifier = modifier) {
                 BallButton(
                     modifier = if (legalBalls.blue) modifier.create(onKeyPress.blue) else modifier,
                     ball = Ball.Blue,
@@ -111,18 +116,21 @@ fun PointScreen(
             }
         }
 
-        Column {
-            WideButton(
-                text = "Foul",
-                color = MaterialTheme.colorScheme.primaryContainer,
-                onPressed = onKeyPress.foul
-            )
-            SmallSpacer()
-            WideButton(
-                text = "End break",
-                color = MaterialTheme.colorScheme.tertiaryContainer,
-                onPressed = onKeyPress.endBreak
-            )
+        if (!settings.swipingEnabled || !settings.hideButtonsEnabled) {
+            Column {
+                SmallSpacer()
+                WideButton(
+                    text = "Foul",
+                    color = MaterialTheme.colorScheme.primaryContainer,
+                    onPressed = onKeyPress.foul
+                )
+                SmallSpacer()
+                WideButton(
+                    text = "End break",
+                    color = MaterialTheme.colorScheme.tertiaryContainer,
+                    onPressed = onKeyPress.endBreak
+                )
+            }
         }
     }
 }

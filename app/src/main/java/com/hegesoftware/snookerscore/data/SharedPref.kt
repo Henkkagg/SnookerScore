@@ -76,11 +76,13 @@ class SharedPref @Inject constructor(
 
     fun getSettings(): Settings {
         val dragEnabled = sharedPref.getBoolean("dragEnabled", true)
+        val hideButtonsEnabled = sharedPref.getBoolean("hideButtonsEnabled", false)
         val sloppyPressEnabled = sharedPref.getBoolean("sloppyPressEnabled", true)
         val showRedsRemaining = sharedPref.getBoolean("showRedsRemaining", false)
 
         return Settings(
             swipingEnabled = dragEnabled,
+            hideButtonsEnabled = hideButtonsEnabled,
             sloppyPressEnabled = sloppyPressEnabled,
             showRedsRemaining = showRedsRemaining
         )
@@ -89,6 +91,7 @@ class SharedPref @Inject constructor(
     fun setSettings(settings: Settings) {
         with(sharedPref.edit()) {
             putBoolean("dragEnabled", settings.swipingEnabled)
+            putBoolean("hideButtonsEnabled", settings.hideButtonsEnabled)
             putBoolean("sloppyPressEnabled", settings.sloppyPressEnabled)
             putBoolean("showRedsRemaining", settings.showRedsRemaining)
             apply()

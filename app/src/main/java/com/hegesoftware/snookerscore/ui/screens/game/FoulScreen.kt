@@ -35,15 +35,15 @@ fun FoulScreen(
     }
 
     Column(
-        verticalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxHeight()
+        modifier = Modifier.fillMaxHeight(),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        val modifier = Modifier.weight(1f)
+        val modifier = Modifier.weight(1f, false)
 
-        Column {
-            Row {
+        Column(modifier = modifier) {
+            Row(modifier = modifier) {
                 CustomIconButton(
-                    modifier = modifier,
+                    modifier = modifier.create(onKeyPress.menu),
                     imageVector = Icons.Default.Menu,
                     contentDescription = "Settings",
                     onPressed = onKeyPress.menu
@@ -58,14 +58,14 @@ fun FoulScreen(
                 )
                 TinyHorizontalSpacer()
                 CustomIconButton(
+                    modifier = modifier.create(onKeyPress.undo),
                     imageVector = Icons.Default.Refresh,
                     contentDescription = "Undo",
-                    modifier = modifier,
                     onPressed = onKeyPress.undo
                 )
             }
             TinyVerticalSpacer()
-            Row {
+            Row(modifier = modifier) {
                 CharButton(
                     modifier = if (lowestFoulPossible <= 5) modifier.create(onKeyPress.five) else modifier,
                     char = '5',
@@ -91,17 +91,17 @@ fun FoulScreen(
                 )
             }
             TinyVerticalSpacer()
-            Row {
+            Row(modifier = modifier) {
                 CharButton(
+                    modifier = modifier.create(onKeyPress.minus),
                     char = '-',
                     isSelected = false,
                     isVisible = chosenFoul.redsLost > 0,
-                    modifier = modifier,
                     onPressed = onKeyPress.minus
                 )
                 TinyHorizontalSpacer()
                 ContentButton(
-                    modifier = modifier,
+                    modifier = modifier.create(onKeyPress.plus),
                     enabled = chosenFoul.redsLost < redsRemaining,
                     onPressed = onKeyPress.plus
                 ) {
@@ -128,7 +128,7 @@ fun FoulScreen(
                 }
                 TinyHorizontalSpacer()
                 ContentButton(
-                    modifier = modifier,
+                    modifier = modifier.create(onKeyPress.freeBall),
                     enabled = lowestFoulPossible < 7,
                     isSelected = chosenFoul.isFreeBall,
                     onPressed = onKeyPress.freeBall
@@ -149,11 +149,16 @@ fun FoulScreen(
                 }
             }
         }
-        WideButton(
-            text = "Confirm foul",
-            color = MaterialTheme.colorScheme.tertiaryContainer,
-            onPressed = onKeyPress.confirm
-        )
+        if (!settings.swipingEnabled || !settings.hideButtonsEnabled) {
+            Column {
+                SmallSpacer()
+                WideButton(
+                    text = "Confirm foul",
+                    color = MaterialTheme.colorScheme.tertiaryContainer,
+                    onPressed = onKeyPress.confirm
+                )
+            }
+        }
     }
 
 }

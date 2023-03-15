@@ -23,6 +23,9 @@ class SettingsViewModel @Inject constructor(
             SettingsUiEvent.DragPressed -> {
                 settings = settings.copy(swipingEnabled = !settings.swipingEnabled)
             }
+            SettingsUiEvent.HideButtonsPressed -> {
+                settings = settings.copy(hideButtonsEnabled = !settings.hideButtonsEnabled)
+            }
             SettingsUiEvent.SloppyPressed -> {
                 settings = settings.copy(sloppyPressEnabled = !settings.sloppyPressEnabled)
             }

@@ -55,7 +55,13 @@ fun GameRootScreen(
         )
     }
 
-    Column {
+    val swipeModifier = Modifier.onDrag(
+        onDownSwipe = { viewModel.onEvent(GameUiEvent.DownSwiped) },
+        onUpSwipe = { viewModel.onEvent(GameUiEvent.UpSwiped) },
+        settings = settings,
+    )
+
+    Column(modifier =  swipeModifier) {
         ScoreDisplay(
             player1Name = if (!viewModel.reversePlayers) viewModel.player1Name else viewModel.player2Name,
             player2Name = if (!viewModel.reversePlayers) viewModel.player2Name else viewModel.player1Name,
@@ -73,37 +79,29 @@ fun GameRootScreen(
         )
         TinySpacer()
 
-        val swipeModifier = Modifier.onDrag(
-            onDownSwipe = { viewModel.onEvent(GameUiEvent.DownSwiped) },
-            onUpSwipe = { viewModel.onEvent(GameUiEvent.UpSwiped) },
-            settings = settings,
-        )
+        if (viewModel.shouldShowFoulScreen) {
+            val onKeyPress = defaultFoulButtonActions(viewModel)
+            val onSwipe = defaultFoulSwipeActions(viewModel)
 
-        Box(modifier = swipeModifier) {
-            if (viewModel.shouldShowFoulScreen) {
-                val onKeyPress = defaultFoulButtonActions(viewModel)
-                val onSwipe = defaultFoulSwipeActions(viewModel)
+            FoulScreen(
+                onKeyPress = onKeyPress,
+                onSwipe = onSwipe,
+                chosenFoul = foulInfo,
+                lowestFoulPossible = max(legalBalls.lowestValue(), 4),
+                redsRemaining = scoreInfo.redsRemaining,
+                settings = settings
+            )
+        } else {
+            val onKeyPress = defaultPointButtonActions(viewModel)
+            val onSwipe = defaultPointSwipeActions(viewModel)
 
-                FoulScreen(
-                    onKeyPress = onKeyPress,
-                    onSwipe = onSwipe,
-                    chosenFoul = foulInfo,
-                    lowestFoulPossible = max(legalBalls.lowestValue(), 4),
-                    redsRemaining = scoreInfo.redsRemaining,
-                    settings = settings
-                )
-            } else {
-                val onKeyPress = defaultPointButtonActions(viewModel)
-                val onSwipe = defaultPointSwipeActions(viewModel)
-
-                PointScreen(
-                    onKeyPress = onKeyPress,
-                    onSwipe = onSwipe,
-                    legalBalls = legalBalls,
-                    redsRemaining = scoreInfo.redsRemaining,
-                    settings = settings
-                )
-            }
+            PointScreen(
+                onKeyPress = onKeyPress,
+                onSwipe = onSwipe,
+                legalBalls = legalBalls,
+                redsRemaining = scoreInfo.redsRemaining,
+                settings = settings
+            )
         }
     }
 }

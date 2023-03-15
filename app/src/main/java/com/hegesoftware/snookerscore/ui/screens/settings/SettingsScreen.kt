@@ -33,6 +33,15 @@ fun SettingsScreen(
                 isChecked = viewModel.settings.swipingEnabled,
                 onCheckedChange = { viewModel.onEvent(SettingsUiEvent.DragPressed) }
             )
+            if (viewModel.settings.swipingEnabled) {
+                SmallSpacer()
+                CheckboxRow(
+                    settingName = "Hide bottom buttons",
+                    settingExplanation = "If you have drag gestures enabled, you can hide bottom buttons to free up screen space",
+                    isChecked = viewModel.settings.hideButtonsEnabled,
+                    onCheckedChange = { viewModel.onEvent(SettingsUiEvent.HideButtonsPressed) }
+                )
+            }
             SmallSpacer()
             CheckboxRow(
                 settingName = "Easier pressing",

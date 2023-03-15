@@ -1,6 +1,7 @@
 package com.hegesoftware.snookerscore.ui.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -162,18 +163,18 @@ fun CharButton(
     )
 
     Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .aspectRatio(1f, true),
         shape = RoundedCornerShape(10.dp),
         enabled = isVisible && !isSelected,
         border = border,
         colors = colors,
-        modifier = modifier,
         onClick = onPressed
     ) {
         Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f)
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
         ) {
             if (isVisible) {
                 Text(

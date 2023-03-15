@@ -55,7 +55,6 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-
         setContent {
             val animatedNavController = rememberAnimatedNavController()
             val animatedNavHostEngine = rememberAnimatedNavHostEngine()
@@ -69,7 +68,7 @@ class MainActivity : ComponentActivity() {
                                 start = 0.dp,
                                 end = 0.dp,
                                 top = 35.dp,
-                                bottom = 5.dp
+                                bottom = 10.dp
                             ),
                     ) {
                         DestinationsNavHost(
