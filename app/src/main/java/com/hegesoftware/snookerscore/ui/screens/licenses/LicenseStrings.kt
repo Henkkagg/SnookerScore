@@ -1,9 +1,7 @@
 package com.hegesoftware.snookerscore.ui.screens.licenses
 
 object LicenseStrings {
-    val apache = "\n" +
-            "\n" +
-            "Apache License\n" +
+    val apache = "Apache License\n" +
             "Version 2.0, January 2004\n" +
             "http://www.apache.org/licenses/\n" +
             "\n" +
