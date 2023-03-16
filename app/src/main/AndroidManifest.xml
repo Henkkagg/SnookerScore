@@ -17,7 +17,9 @@
             android:name=".MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"
-            android:theme="@style/Theme.SnookerScore">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.SnookerScore"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
