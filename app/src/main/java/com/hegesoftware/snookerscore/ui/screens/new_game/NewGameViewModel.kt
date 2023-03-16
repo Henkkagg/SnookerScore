@@ -1,20 +1,15 @@
 package com.hegesoftware.snookerscore.ui.screens.new_game
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.hegesoftware.snookerscore.VERSION_NUMBER
 import com.hegesoftware.snookerscore.data.SharedPref
-import com.hegesoftware.snookerscore.domain.BreakUsecases
 import com.hegesoftware.snookerscore.domain.models.AlertDialog
 import com.hegesoftware.snookerscore.ui.screens.Navigator
 import com.hegesoftware.snookerscore.ui.screens.destinations.GameRootScreenDestination
 import com.hegesoftware.snookerscore.ui.screens.destinations.LicensesScreenDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.min
 
@@ -22,7 +17,6 @@ import kotlin.math.min
 class NewGameViewModel @Inject constructor(
     private val navigator: Navigator,
     private val sharedPref: SharedPref,
-    private val usecases: BreakUsecases
 ) : ViewModel() {
 
     var gameState by mutableStateOf(GameState())
@@ -31,13 +25,14 @@ class NewGameViewModel @Inject constructor(
     var shouldShowAlertDialog by mutableStateOf(false)
         private set
 
-    private var shouldUpdate = false
-
-
     private val player1NavArgument: String
         get() = gameState.player1Name.trim().ifEmpty { "Player 1" }
     private val player2NavArgument: String
         get() = gameState.player2Name.trim().ifEmpty { "Player 2" }
+
+    init {
+        loadGameState()
+    }
 
     fun onEvent(event: NewGameUiEvent) {
         when (event) {

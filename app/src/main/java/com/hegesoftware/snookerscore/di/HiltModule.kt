@@ -2,9 +2,6 @@ package com.hegesoftware.snookerscore.di
 
 import android.content.Context
 import androidx.room.Room
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.hegesoftware.snookerscore.data.BreakDatabase
 import com.hegesoftware.snookerscore.data.BreakRepositoryImpl
 import com.hegesoftware.snookerscore.data.SharedPref

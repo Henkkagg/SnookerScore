@@ -54,9 +54,11 @@ fun NewGameScreen(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
-            Text("SnookerScore", style = Typography.displayMedium)
+            Text("SnookerScore", style = Typography.displaySmall)
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(MaterialTheme.padding.small),
                 horizontalArrangement = Arrangement.End
             ) {
                 IconButton(onClick = { viewModel.onEvent(NewGameUiEvent.GoToLicensesPressed) }) {

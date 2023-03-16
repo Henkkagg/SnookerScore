@@ -1,6 +1,5 @@
 package com.hegesoftware.snookerscore.ui.screens.game
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,7 +10,6 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.hegesoftware.snookerscore.domain.models.Ball
 import com.hegesoftware.snookerscore.domain.models.LegalBalls
 import com.hegesoftware.snookerscore.domain.models.Settings
