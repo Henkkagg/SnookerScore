@@ -50,5 +50,8 @@ val Typography = Typography(
     labelMedium = Typography().labelMedium.copy(
         fontFamily = Arimo,
         letterSpacing = 0.5.sp
+    ),
+    labelSmall = Typography().labelSmall.copy(
+        fontFamily = Arimo
     )
 )
