@@ -9,6 +9,7 @@
 
     <style name="Theme.SnookerScore.Splash" parent="Theme.SplashScreen.IconBackground">
 
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_round</item>
         <item name="windowSplashScreenBackground">@color/background</item>
         <item name="postSplashScreenTheme">@style/Theme.SnookerScore</item>
     </style>
